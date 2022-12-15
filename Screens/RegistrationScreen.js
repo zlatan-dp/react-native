@@ -8,19 +8,43 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
 } from "react-native";
 
 export default function RegistrationScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const loginHandler = (text) => setLogin(text);
+  const emailHandler = (text) => setEmail(text);
+  const passwordHandler = (text) => setPassword(text);
+
+  const onSubmit = () => {
+    Alert.alert(`login: ${login}, email: ${email}, password: ${password}`);
+    setLogin("");
+    setEmail("");
+    setPassword("");
+  };
+
+  const keyboardHide = () => {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+  };
+
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        style={styles.image}
-        source={require("../assets/img/bg.png")}
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+    <TouchableWithoutFeedback onPress={keyboardHide}>
+      <View style={styles.container}>
+        <ImageBackground
+          style={styles.image}
+          source={require("../assets/img/bg.png")}
         >
+          {/* <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+          > */}
           <View style={styles.form}>
             <View style={styles.wrapper}>
               <Text style={styles.formTitle}>Регистрация</Text>
@@ -28,48 +52,52 @@ export default function RegistrationScreen() {
             <View>
               <TextInput
                 style={styles.input}
+                value={login}
                 placeholder={"Логин"}
                 placeholderTextColor={"#BDBDBD"}
                 onFocus={() => setIsShowKeyboard(true)}
+                onChangeText={loginHandler}
               />
               <TextInput
                 style={styles.input}
+                value={email}
                 placeholder={"Адрес электронной почты"}
                 placeholderTextColor={"#BDBDBD"}
                 onFocus={() => setIsShowKeyboard(true)}
+                onChangeText={emailHandler}
               />
               <TextInput
                 style={styles.input}
+                value={password}
                 placeholder={"Пароль"}
                 placeholderTextColor={"#BDBDBD"}
                 secureTextEntry={true}
                 onFocus={() => setIsShowKeyboard(true)}
+                onChangeText={passwordHandler}
               />
             </View>
 
-            <TouchableOpacity activeOpacity={0.8} style={styles.btn}>
-              <Text style={styles.textBtn}>Зарегистрироваться</Text>
-            </TouchableOpacity>
-
-            <View style={styles.wrapper}>
-              <Text style={styles.linkToLogin}>Уже есть аккаунт? Войти</Text>
-            </View>
-
-            {/* {!isShowKeyboard && (
-                <TouchableOpacity activeOpacity={0.8} style={styles.btn}>
+            {!isShowKeyboard && (
+              <View>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={styles.btn}
+                  onPress={onSubmit}
+                >
                   <Text style={styles.textBtn}>Зарегистрироваться</Text>
                 </TouchableOpacity>
-              ) && (
                 <View style={styles.wrapper}>
                   <Text style={styles.linkToLogin}>
                     Уже есть аккаунт? Войти
                   </Text>
                 </View>
-              )} */}
+              </View>
+            )}
           </View>
-        </KeyboardAvoidingView>
-      </ImageBackground>
-    </View>
+          {/* </KeyboardAvoidingView> */}
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -92,7 +120,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
   },
   formTitle: {
-    // fontWeight: 500,
+    // fontFamily: "Roboto-Medium",
     fontSize: 30,
   },
   wrapper: {

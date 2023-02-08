@@ -30,7 +30,8 @@ export default function RegistrationScreen() {
   const passwordHandler = (text) => setPassword(text);
 
   const onSubmit = () => {
-    Alert.alert(`login: ${login}, email: ${email}, password: ${password}`);
+    const userData = { login, email, password };
+    console.log(userData);
     setLogin("");
     setEmail("");
     setPassword("");

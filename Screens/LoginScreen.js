@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   ImageBackground,
-  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -12,7 +11,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
-  Dimensions,
 } from "react-native";
 
 export default function LoginScreen() {
@@ -27,7 +25,8 @@ export default function LoginScreen() {
   const passwordHandler = (text) => setPassword(text);
 
   const onSubmit = () => {
-    Alert.alert(`email: ${email}, password: ${password}`);
+    const userData = { email, password };
+    console.log(userData);
     setEmail("");
     setPassword("");
     keyboardHide();

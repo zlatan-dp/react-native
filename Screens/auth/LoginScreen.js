@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   ImageBackground,
-  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -11,31 +10,26 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
-  Dimensions,
 } from "react-native";
 
-export default function RegistrationScreen() {
+export default function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSecurePassword, setIsSecurePassword] = useState(true);
-  const [isFocusedLogin, setIsFocusedLogin] = useState(false);
   const [isFocusedEmail, setIsFocusedEmail] = useState(false);
   const [isFocusedPass, setIsFocusedPass] = useState(false);
 
-  const loginHandler = (text) => setLogin(text);
   const emailHandler = (text) => setEmail(text);
   const passwordHandler = (text) => setPassword(text);
 
   const onSubmit = () => {
-    const userData = { login, email, password };
+    const userData = { email, password };
     console.log(userData);
-    setLogin("");
     setEmail("");
     setPassword("");
     keyboardHide();
+    navigation.navigate("Main");
   };
 
   const keyboardHide = () => {
@@ -48,34 +42,19 @@ export default function RegistrationScreen() {
       <View style={styles.container}>
         <ImageBackground
           style={styles.image}
-          source={require("../assets/img/bg.png")}
+          source={require("../../assets/img/bg.png")}
         >
           <KeyboardAvoidingView behavior={Platform.OS == "ios" && "padding"}>
-            <View style={styles.form}>
-              <View style={styles.avatarWrapper}>
-                <Image
-                  style={styles.addIcon}
-                  source={require("../assets/img/add.png")}
-                />
-              </View>
+            <View
+              style={{
+                ...styles.form,
+                paddingBottom: isShowKeyboard ? 0 : 116,
+              }}
+            >
               <View style={styles.wrapper}>
-                <Text style={styles.formTitle}>Регистрация</Text>
+                <Text style={styles.formTitle}>Войти</Text>
               </View>
               <View>
-                <TextInput
-                  style={{
-                    ...styles.input,
-                    borderColor: isFocusedLogin ? "#FF6C00" : "#E8E8E8",
-                  }}
-                  value={login}
-                  placeholder={"Логин"}
-                  placeholderTextColor={"#BDBDBD"}
-                  onFocus={() => {
-                    setIsShowKeyboard(true), setIsFocusedLogin(true);
-                  }}
-                  onBlur={() => setIsFocusedLogin(false)}
-                  onChangeText={loginHandler}
-                />
                 <TextInput
                   style={{
                     ...styles.input,
@@ -124,18 +103,20 @@ export default function RegistrationScreen() {
                   }}
                   onPress={onSubmit}
                 >
-                  <Text style={styles.textBtn}>Зарегистрироваться</Text>
+                  <Text style={styles.textBtn}>Войти</Text>
                 </TouchableOpacity>
               </View>
 
               {!isShowKeyboard && (
-                <View>
-                  <View style={styles.wrapper}>
-                    <Text style={styles.linkToLogin}>
-                      Уже есть аккаунт? Войти
-                    </Text>
-                  </View>
-                </View>
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  style={styles.wrapper}
+                  onPress={() => navigation.navigate("Registration")}
+                >
+                  <Text style={styles.linkToLogin}>
+                    Нет аккаунта? Зарегистрироваться
+                  </Text>
+                </TouchableOpacity>
               )}
             </View>
           </KeyboardAvoidingView>
@@ -144,8 +125,6 @@ export default function RegistrationScreen() {
     </TouchableWithoutFeedback>
   );
 }
-
-// const windowWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   container: {
@@ -163,28 +142,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingLeft: 16,
     paddingRight: 16,
-    paddingTop: 76,
+    paddingTop: 32,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-  },
-
-  avatarWrapper: {
-    position: "absolute",
-    right: Dimensions.get("window").width / 2 - 60,
-    top: -60,
-    width: 120,
-    height: 120,
-    backgroundColor: "#F6F6F6",
-    borderRadius: 16,
-  },
-
-  addIcon: {
-    position: "absolute",
-    right: -12,
-    bottom: 14,
-    width: 25,
-    height: 25,
-    resizeMode: "stretch",
   },
 
   formTitle: {

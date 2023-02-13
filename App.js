@@ -1,33 +1,16 @@
 import React from "react";
 import {} from "react-native";
 import { useFonts } from "expo-font";
-import RegistrationScreen from "./Screens/RegistrationScreen";
-import LoginScreen from "./Screens/LoginScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-// import * as Font from "expo-font";
-// import { AppLoading } from "expo";
+import RegistrationScreen from "./Screens/auth/RegistrationScreen";
+import LoginScreen from "./Screens/auth/LoginScreen";
+import MainScreen from "./Screens/mainScreen/Home";
 
-// const loadFonts = async () => {
-//   await Font.loadAsync({
-//     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
-//     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
-//     "Pacifico-Regular": require("./assets/fonts/Pacifico-Regular.ttf"),
-//   });
-// };
+const AuthStack = createStackNavigator();
 
 export default function App() {
-  // const [isReady, setIsReady] = useState(false);
-
-  // if (!isReady) {
-  //   return (
-  //     <AppLoading
-  //       startAsync={loadFonts}
-  //       onFinish={() => setIsReady(true)}
-  //       onError={console.warn}
-  //     />
-  //   );
-  // }
-
   const [loaded] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
@@ -39,9 +22,24 @@ export default function App() {
   }
 
   return (
-    <>
-      <RegistrationScreen />
-      {/* <LoginScreen /> */}
-    </>
+    <NavigationContainer>
+      <AuthStack.Navigator initialRouteName="Login">
+        <AuthStack.Screen
+          options={{ headerShown: false }}
+          name="Registration"
+          component={RegistrationScreen}
+        />
+        <AuthStack.Screen
+          options={{ headerShown: false }}
+          name="Login"
+          component={LoginScreen}
+        />
+        <AuthStack.Screen
+          options={{ headerShown: false }}
+          name="Main"
+          component={MainScreen}
+        />
+      </AuthStack.Navigator>
+    </NavigationContainer>
   );
 }

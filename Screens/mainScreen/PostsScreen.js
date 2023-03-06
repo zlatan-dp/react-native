@@ -1,19 +1,59 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import DefaultPostsScreen from "../postedScreens/DefaultPostsScreen";
+import CommentsScreen from "../postedScreens/CommentsScreen";
+import MapScreen from "../postedScreens/MapScreen";
+import { Image, StyleSheet, TouchableOpacity } from "react-native";
 
-const PostsScreen = () => {
+const PostedScreen = createStackNavigator();
+
+const PostsScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <Text>PostsScreen</Text>
-    </View>
+    <PostedScreen.Navigator>
+      <PostedScreen.Screen
+        name="DefaultScreen"
+        component={DefaultPostsScreen}
+        options={{
+          title: "Публикации",
+          headerTitleAlign: "center",
+
+          headerRight: () => (
+            <TouchableOpacity
+              style={styles.logOutBtn}
+              onPress={() => navigation.navigate("Login")}
+            >
+              <Image source={require("../../assets/img/logOut.png")} />
+            </TouchableOpacity>
+          ),
+
+          headerLeft: () => null,
+        }}
+      />
+      <PostedScreen.Screen
+        name="Comments"
+        component={CommentsScreen}
+        options={{
+          title: "Комментарии",
+          headerTitleAlign: "center",
+          headerBackTitleVisible: false,
+        }}
+      />
+      <PostedScreen.Screen
+        name="Map"
+        component={MapScreen}
+        options={{
+          title: "Карта",
+          headerBackTitleVisible: false,
+          headerTitleAlign: "center",
+        }}
+      />
+    </PostedScreen.Navigator>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  logOutBtn: {
+    marginRight: 19,
   },
 });
 

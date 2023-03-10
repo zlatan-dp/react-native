@@ -15,6 +15,9 @@ import {
   Dimensions,
 } from "react-native";
 
+import { authSignUp } from "../../redux/auth/authOperations";
+import { useDispatch } from "react-redux";
+
 export default function RegistrationScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [login, setLogin] = useState("");
@@ -29,14 +32,17 @@ export default function RegistrationScreen({ navigation }) {
   const emailHandler = (text) => setEmail(text);
   const passwordHandler = (text) => setPassword(text);
 
+  const dispatch = useDispatch();
+
   const onSubmit = () => {
     const userData = { login, email, password };
     console.log(userData);
+    dispatch(authSignUp(userData));
     setLogin("");
     setEmail("");
     setPassword("");
     keyboardHide();
-    navigation.navigate("Main");
+    // navigation.navigate("Main");
   };
 
   const keyboardHide = () => {

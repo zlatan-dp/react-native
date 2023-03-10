@@ -12,6 +12,9 @@ import {
   Keyboard,
 } from "react-native";
 
+import { authSignIn } from "../../redux/auth/authOperations";
+import { useDispatch } from "react-redux";
+
 export default function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [email, setEmail] = useState("");
@@ -23,13 +26,16 @@ export default function LoginScreen({ navigation }) {
   const emailHandler = (text) => setEmail(text);
   const passwordHandler = (text) => setPassword(text);
 
+  const dispatch = useDispatch();
+
   const onSubmit = () => {
     const userData = { email, password };
     console.log(userData);
+    dispatch(authSignIn(userData));
     setEmail("");
     setPassword("");
     keyboardHide();
-    navigation.navigate("Main");
+    // navigation.navigate("Main");
   };
 
   const keyboardHide = () => {

@@ -10,6 +10,7 @@ export default function App() {
   const [loaded] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
+    "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
     "Pacifico-Regular": require("./assets/fonts/Pacifico-Regular.ttf"),
   });
 

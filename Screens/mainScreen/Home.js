@@ -47,6 +47,7 @@ export default function MainScreen({ navigation }) {
           tabBarIcon: ({ focused, size, color }) => (
             <Image source={require("../../assets/img/user.png")} />
           ),
+          headerShown: false,
         }}
         name="Profile"
         component={ProfileScreen}

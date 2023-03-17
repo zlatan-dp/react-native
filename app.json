@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "project-1",
-    "slug": "project-1",
+    "slug": "hw-react-native",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,16 +18,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zlatandp.hwreactnative"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.zlatandp.hwreactnative"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b411d1cf-91d1-4f5e-977b-f66ae3e3f333"
+      }
+    },
+    "owner": "zlatan-dp"
   }
 }

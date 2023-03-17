@@ -106,7 +106,7 @@ const DefaultPostsScreen = ({ route, navigation }) => {
               <TouchableOpacity
                 style={styles.locationInfo}
                 onPress={() => {
-                  navigation.navigate("Map", { photo: item.photo });
+                  navigation.navigate("Map", { location: item.location });
                 }}
               >
                 <Image source={require("../../assets/img/map-pin.png")} />
